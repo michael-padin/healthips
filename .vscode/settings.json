@@ -1,0 +1,12 @@
+{
+    "cSpell.words": [
+        "Firestore"
+    ],
+    "WillLuke.nextjs.addTypesOnSave": true,
+    "WillLuke.nextjs.hasPrompted": true,
+    "editor.formatOnSave": true,
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "always"
+      }
+}
