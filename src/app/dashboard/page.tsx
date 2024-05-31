@@ -5,6 +5,7 @@ import { generateRecommendations } from "./actions"
 import { redirect } from "next/navigation"
 import { uniqueHealthConditions } from "@/data/dummy-health-conditions"
 import { Metadata } from "next"
+import ogImage from "./opengraph-image.jpg"
 
 const data: any = {
   title: "",
@@ -24,6 +25,7 @@ const data: any = {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
   title: "Health Recommendations",
   description:
     "Generate health recommendations based on a user's health condition and temperature",
@@ -35,6 +37,14 @@ export const metadata: Metadata = {
     url: process.env.NEXT_PUBLIC_BASE_URL,
     siteName: "HealthTips",
     type: "website",
+    images: [
+      {
+        url: ogImage.src,
+        width: 1200,
+        height: 630,
+        alt: "HealthTips",
+      },
+    ],
   },
 
   twitter: {
@@ -44,6 +54,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@HealthTips",
     creator: "@MichaelPadin",
+    images: [
+      {
+        url: ogImage.src,
+        width: 1200,
+        height: 630,
+        alt: "HealthTips",
+      },
+    ],
   },
 }
 
