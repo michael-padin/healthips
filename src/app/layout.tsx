@@ -21,6 +21,14 @@ export const metadata: Metadata = {
     url: process.env.NEXT_PUBLIC_BASE_URL,
     siteName: "HealthTips",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "HealthTips",
+      },
+    ],
   },
 
   twitter: {
@@ -30,6 +38,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@HealthTips",
     creator: "@MichaelPadin",
+    images: [
+      {
+        url: "/twitter-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "HealthTips",
+      },
+    ],
   },
 }
 
