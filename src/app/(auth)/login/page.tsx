@@ -4,7 +4,7 @@ import Header from "@/app/dashboard/_components/header"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "Login - Healthtips",
+  title: "Login - HealthTips",
   description: "Login to your account",
 }
 

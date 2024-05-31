@@ -20,6 +20,14 @@ export const metadata: Metadata = {
       "Generate health recommendations using AI tailored to user health conditions and room temperature.",
     url: process.env.NEXT_PUBLIC_BASE_URL,
     siteName: "HealthTips",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "HealthTips",
+      },
+    ],
   },
 }
 
