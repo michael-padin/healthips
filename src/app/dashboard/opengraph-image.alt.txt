@@ -1,0 +1,1 @@
+HealthTips - Generate health recommendations using AI tailored to user health conditions and room temperature.

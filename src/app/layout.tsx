@@ -1,12 +1,9 @@
 import type { Metadata } from "next"
-import { Inter, Poppins } from "next/font/google"
+import { Poppins } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
 import SessionProvider from "@/components/session-provider"
 import { auth } from "@/auth"
-
-import ogImage from "./opengraph-image.png"
-import twitterImage from "./twitter-image.png"
 
 const inter = Poppins({
   weight: ["100", "200", "300", "400", "500", "600"],
@@ -24,14 +21,6 @@ export const metadata: Metadata = {
     url: process.env.NEXT_PUBLIC_BASE_URL,
     siteName: "HealthTips",
     type: "website",
-    images: [
-      {
-        url: ogImage.src,
-        width: 1200,
-        height: 630,
-        alt: "HealthTips - Generate health recommendations using AI tailored to user health conditions and room temperature.",
-      },
-    ],
   },
 
   twitter: {
@@ -39,14 +28,6 @@ export const metadata: Metadata = {
     description:
       "Generate health recommendations using AI tailored to user health conditions and room temperature.",
     card: "summary_large_image",
-    images: [
-      {
-        width: 1200,
-        height: 630,
-        url: twitterImage.src,
-        alt: "HealthTips - Generate health recommendations using AI tailored to user health conditions and room temperature.",
-      },
-    ],
     site: "@HealthTips",
     creator: "@MichaelPadin",
   },
