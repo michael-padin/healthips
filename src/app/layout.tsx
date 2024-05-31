@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/opengraph-image.png`,
         width: 1200,
         height: 630,
         alt: "HealthTips - Generate health recommendations using AI tailored to user health conditions and room temperature.",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
       {
         width: 1200,
         height: 630,
-        url: "/twitter-image.png",
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/twitter-image.png`,
         alt: "HealthTips - Generate health recommendations using AI tailored to user health conditions and room temperature.",
       },
     ],
