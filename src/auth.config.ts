@@ -67,30 +67,9 @@ export default {
       return token
     },
     session({ session, token, user }) {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          role: user.role,
-          healthCondition: user.healthCondition,
-        },
-      }
-    },
-    authorized({ auth, request: { nextUrl } }) {
-      try {
-        const isLoggedIn = !!auth?.user
-        console.log(isLoggedIn)
-        console.log(nextUrl.pathname)
-        const homePage = nextUrl.pathname === "/"
-
-        if (homePage && !isLoggedIn) {
-          return NextResponse.redirect(new URL("/login", nextUrl))
-        } else {
-          return NextResponse.redirect(new URL("/dashboard", nextUrl))
-        }
-      } catch (error) {
-        // handle error
-      }
+      session.user.role = token.role as string
+      session.user.healthCondition = token.healthCondition as string
+      return session
     },
   },
   secret: process.env.AUTH_SECRET,

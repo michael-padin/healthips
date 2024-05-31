@@ -2,6 +2,7 @@ import { auth } from "@/auth"
 import Header from "./_components/header"
 import SampleUI from "./_components/sample-ui"
 import { generateRecommendations } from "./actions"
+import { redirect } from "next/navigation"
 
 const data: any = {
   title: "",
@@ -30,7 +31,8 @@ export default async function Dashboard() {
   const prompt = `Generate health recommendations for an individual with ${healthCondition} based on a temperature of ${temperature}°C. Provide the recommendations in the following schema: ${JSON.stringify(data)}`
   const response = await generateRecommendations(prompt)
 
-  if (!user) {
+  if (!session?.user) {
+    redirect("/login")
   }
 
   return (
