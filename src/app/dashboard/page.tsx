@@ -5,10 +5,10 @@ import { generateRecommendations } from "./actions"
 import { redirect } from "next/navigation"
 import { uniqueHealthConditions } from "@/data/dummy-health-conditions"
 import { Metadata } from "next"
-import ogImage from "./opengraph-image.jpg"
+import ogImage from "../../../public/opengraph-image.jpg"
 
 const data: any = {
-  title: "",
+  title: "HealthTips",
   recommendations: [
     {
       title: "Maintain a Healthy Lifestyle",
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage.src,
-        width: 1200,
-        height: 630,
+        width: ogImage.width,
+        height: ogImage.height,
         alt: "HealthTips",
       },
     ],
@@ -57,8 +57,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage.src,
-        width: 1200,
-        height: 630,
+        width: ogImage.width,
+        height: ogImage.height,
         alt: "HealthTips",
       },
     ],
