@@ -5,6 +5,9 @@ import { Toaster } from "@/components/ui/sonner"
 import SessionProvider from "@/components/session-provider"
 import { auth } from "@/auth"
 
+import ogImage from "./opengraph-image.png"
+import twitterImage from "./twitter-image.png"
+
 const inter = Poppins({
   weight: ["100", "200", "300", "400", "500", "600"],
   subsets: ["latin"],
@@ -23,13 +26,14 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/opengraph-image.png`,
+        url: ogImage.src,
         width: 1200,
         height: 630,
         alt: "HealthTips - Generate health recommendations using AI tailored to user health conditions and room temperature.",
       },
     ],
   },
+
   twitter: {
     title: "HealthTips",
     description:
@@ -39,7 +43,7 @@ export const metadata: Metadata = {
       {
         width: 1200,
         height: 630,
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/twitter-image.png`,
+        url: twitterImage.src,
         alt: "HealthTips - Generate health recommendations using AI tailored to user health conditions and room temperature.",
       },
     ],
