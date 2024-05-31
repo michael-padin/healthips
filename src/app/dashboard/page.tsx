@@ -3,6 +3,8 @@ import Header from "./_components/header"
 import SampleUI from "./_components/sample-ui"
 import { generateRecommendations } from "./actions"
 import { redirect } from "next/navigation"
+import { uniqueHealthConditions } from "@/data/dummy-health-conditions"
+import { Metadata } from "next"
 
 const data: any = {
   title: "",
@@ -21,14 +23,29 @@ const data: any = {
   ],
 }
 
+export const metadata: Metadata = {
+  title: "Health Recommendations",
+  description:
+    "Generate health recommendations based on a user's health condition and temperature",
+}
+
+interface HealthCondition {
+  label: string
+}
+
 export default async function Dashboard() {
   const session = await auth()
-  const user = session?.user.healthCondition
-  const healthCondition = "Asthma"
+  const healthCondition = session?.user.healthCondition
+  const foundCondition = healthCondition
+    ? uniqueHealthConditions.find(
+        (condition) => condition.value === healthCondition,
+      )
+    : { label: "Asthma", value: "asthma" }
+
   const temperature = 36
   console.log({ data: JSON.stringify(data) })
 
-  const prompt = `Generate health recommendations for an individual with ${healthCondition} based on a temperature of ${temperature}°C. Provide the recommendations in the following schema: ${JSON.stringify(data)}`
+  const prompt = `Generate health recommendations for an individual with ${foundCondition?.label || "Asthma"} based on a temperature of ${temperature}°C. Provide the recommendations in the following schema: ${JSON.stringify(data)}`
   const response = await generateRecommendations(prompt)
 
   if (!session?.user) {

@@ -4,6 +4,7 @@ import { Circle, Loader2 } from "lucide-react"
 import { generateRecommendations } from "../actions"
 import { use, useEffect, useState, useTransition } from "react"
 import { toast } from "sonner"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function SampleUI({
   recommendation,
@@ -55,33 +56,56 @@ export default function SampleUI({
               {isPending ? <Loader2 className="animate-spin" /> : "Refresh"}
             </Button>
           </div>
-          <div className="space-y-6">
-            <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-900 md:p-8">
-              <h2 className="mb-4 text-2xl font-bold">
-                {newRecommendation?.title}
-              </h2>
-              <ul className="space-y-4 text-lg">
-                {newRecommendation?.recommendations.map(
-                  (
-                    item: { title: string; description: string },
-                    idx: number,
-                  ) => (
-                    <li className="flex items-start" key={idx}>
-                      <Circle
-                        className="mr-4 h-6 w-6 text-primary"
-                        stroke="#d62b71"
-                      />
-                      <div>
-                        <h3 className="font-semibold">{item.title}</h3>
-                        <p className="text-gray-500 dark:text-gray-400">
-                          {item.description}
-                        </p>
+          <div className="w-full space-y-6">
+            {isPending || !newRecommendation ? (
+              <div className="flex flex-col rounded-lg bg-white p-6 shadow dark:bg-gray-900 md:p-8">
+                <div className="mb-4">
+                  <Skeleton className="h-8 w-full rounded-md" />
+                </div>
+                <ul className="text w-full flex-1 space-y-4">
+                  {Array.from({ length: 5 }).map((_, idx) => (
+                    <li className="flex w-full items-start" key={idx}>
+                      <Skeleton className="mr-4 h-6 w-5 rounded-full"></Skeleton>
+                      <div className="w-full space-y-2">
+                        <Skeleton className="h-6 w-32 rounded-md" />
+                        <div className="w-full space-y-2">
+                          <Skeleton className="h-4 w-full rounded-md" />
+                          <Skeleton className="h-4 w-full rounded-md" />
+                          <Skeleton className="h-4 w-full rounded-md" />
+                        </div>
                       </div>
                     </li>
-                  ),
-                )}
-              </ul>
-            </div>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-900 md:p-8">
+                <h2 className="mb-4 text-xl font-bold lg:text-2xl">
+                  {newRecommendation?.title}
+                </h2>
+                <ul className="space-y-4 text-lg">
+                  {newRecommendation?.recommendations.map(
+                    (
+                      item: { title: string; description: string },
+                      idx: number,
+                    ) => (
+                      <li className="flex items-start" key={idx}>
+                        <Circle
+                          className="mr-4 block h-6 w-6 text-primary"
+                          stroke="#d62b71"
+                        />
+                        <div className="w-full">
+                          <h3 className="font-semibold">{item.title}</h3>
+                          <p className="text-sm text-gray-500 dark:text-gray-400 lg:text-base">
+                            {item.description}
+                          </p>
+                        </div>
+                      </li>
+                    ),
+                  )}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
