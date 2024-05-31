@@ -6,6 +6,9 @@ import { redirect } from "next/navigation"
 import { uniqueHealthConditions } from "@/data/dummy-health-conditions"
 import { Metadata } from "next"
 
+import ogImage from "@/app/opengraph-image.png"
+import twitterImage from "@/app/twitter-image.png"
+
 const data: any = {
   title: "",
   recommendations: [
@@ -27,6 +30,40 @@ export const metadata: Metadata = {
   title: "Health Recommendations",
   description:
     "Generate health recommendations based on a user's health condition and temperature",
+
+  openGraph: {
+    title: "HealthTips",
+    description:
+      "Generate health recommendations using AI tailored to user health conditions and room temperature.",
+    url: process.env.NEXT_PUBLIC_BASE_URL,
+    siteName: "HealthTips",
+    type: "website",
+    images: [
+      {
+        url: ogImage.src,
+        width: ogImage.width,
+        height: ogImage.height,
+        alt: "HealthTips - Generate health recommendations using AI tailored to user health conditions and room temperature.",
+      },
+    ],
+  },
+
+  twitter: {
+    title: "HealthTips",
+    description:
+      "Generate health recommendations using AI tailored to user health conditions and room temperature.",
+    card: "summary_large_image",
+    images: [
+      {
+        width: twitterImage.width,
+        height: twitterImage.height,
+        url: twitterImage.src,
+        alt: "HealthTips - Generate health recommendations using AI tailored to user health conditions and room temperature.",
+      },
+    ],
+    site: "@HealthTips",
+    creator: "@MichaelPadin",
+  },
 }
 
 export default async function Dashboard() {
