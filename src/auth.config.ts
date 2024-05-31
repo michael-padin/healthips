@@ -71,6 +71,23 @@ export default {
       session.user.healthCondition = token.healthCondition as string
       return session
     },
+    authorized({ auth, request: { nextUrl } }) {
+      try {
+        const isLoggedIn = !!auth?.user
+        const isOnAuthPages = nextUrl.pathname.startsWith("/login")
+        if (!isOnAuthPages) {
+          if (isLoggedIn) {
+            return true
+          }
+          return false
+        } else if (isLoggedIn) {
+          return NextResponse.redirect(new URL("/dashboard", nextUrl))
+        }
+        return true
+      } catch (error) {
+        // handle error
+      }
+    },
   },
   secret: process.env.AUTH_SECRET,
 } satisfies NextAuthConfig

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     url: "https://healthtips.com",
     images: [
       {
-        url: "https://healthtips.com/placeholder.svg",
+        url: "https://healthtips.com/dashboard.png",
         width: 1200,
         height: 630,
         alt: "HealthTips",

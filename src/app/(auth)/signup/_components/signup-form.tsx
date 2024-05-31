@@ -34,8 +34,10 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Loader2 } from "lucide-react"
+import { redirect, useRouter } from "next/navigation"
 
 export function SignUpForm() {
+  const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const form = useForm<RegisterType>({
     resolver: zodResolver(RegisterSchema),
@@ -56,6 +58,7 @@ export function SignUpForm() {
       register(data).then((res) => {
         if (res.success) {
           toast.success(res.success)
+          router.push("/login")
         } else {
           toast.error(res.error)
         }

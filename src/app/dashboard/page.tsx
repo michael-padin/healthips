@@ -29,10 +29,6 @@ export const metadata: Metadata = {
     "Generate health recommendations based on a user's health condition and temperature",
 }
 
-interface HealthCondition {
-  label: string
-}
-
 export default async function Dashboard() {
   const session = await auth()
   const healthCondition = session?.user.healthCondition
@@ -43,8 +39,6 @@ export default async function Dashboard() {
     : { label: "Asthma", value: "asthma" }
 
   const temperature = 36
-  console.log({ data: JSON.stringify(data) })
-
   const prompt = `Generate health recommendations for an individual with ${foundCondition?.label || "Asthma"} based on a temperature of ${temperature}°C. Provide the recommendations in the following schema: ${JSON.stringify(data)}`
   const response = await generateRecommendations(prompt)
 
