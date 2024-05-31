@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/sonner"
 import SessionProvider from "@/components/session-provider"
 import { auth } from "@/auth"
 
-import ogImage from "../../public/opengraph-image.jpg"
+import ogImage from "./opengraph-image.png"
 
 const inter = Poppins({
   weight: ["100", "200", "300", "400", "500", "600"],
@@ -23,6 +23,14 @@ export const metadata: Metadata = {
     url: process.env.NEXT_PUBLIC_BASE_URL,
     siteName: "HealthTips",
     type: "website",
+    images: [
+      {
+        url: ogImage.src,
+        width: ogImage.width,
+        height: ogImage.height,
+        alt: "HealthTips",
+      },
+    ],
   },
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
   twitter: {
@@ -32,6 +40,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@HealthTips",
     creator: "@MichaelPadin",
+    images: [
+      {
+        url: ogImage.src,
+        width: ogImage.width,
+        height: ogImage.height,
+        alt: "HealthTips",
+      },
+    ],
   },
 }
 
