@@ -20,14 +20,31 @@ export const metadata: Metadata = {
       "Generate health recommendations using AI tailored to user health conditions and room temperature.",
     url: process.env.NEXT_PUBLIC_BASE_URL,
     siteName: "HealthTips",
+    type: "website",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "HealthTips",
+        alt: "HealthTips - Generate health recommendations using AI tailored to user health conditions and room temperature.",
       },
     ],
+  },
+  twitter: {
+    title: "HealthTips",
+    description:
+      "Generate health recommendations using AI tailored to user health conditions and room temperature.",
+    card: "summary_large_image",
+    images: [
+      {
+        width: 1200,
+        height: 630,
+        url: "/twitter-image.png",
+        alt: "HealthTips - Generate health recommendations using AI tailored to user health conditions and room temperature.",
+      },
+    ],
+    site: "@HealthTips",
+    creator: "@MichaelPadin",
   },
 }
 
