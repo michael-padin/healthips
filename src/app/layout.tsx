@@ -18,15 +18,7 @@ export const metadata: Metadata = {
     title: "HealthTips",
     description:
       "Generate health recommendations using AI tailored to user health conditions and room temperature.",
-    url: "https://healthtips.com",
-    images: [
-      {
-        url: "https://healthtips.com/dashboard.png",
-        width: 1200,
-        height: 630,
-        alt: "HealthTips",
-      },
-    ],
+    url: process.env.NEXT_PUBLIC_BASE_URL,
     siteName: "HealthTips",
   },
 }
