@@ -23,14 +23,6 @@ export const metadata: Metadata = {
     url: process.env.NEXT_PUBLIC_BASE_URL,
     siteName: "HealthTips",
     type: "website",
-    images: [
-      {
-        url: ogImage.src,
-        width: ogImage.width,
-        height: ogImage.height,
-        alt: "HealthTips",
-      },
-    ],
   },
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
   twitter: {
@@ -40,14 +32,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@HealthTips",
     creator: "@MichaelPadin",
-    images: [
-      {
-        url: ogImage.src,
-        width: ogImage.width,
-        height: ogImage.height,
-        alt: "HealthTips",
-      },
-    ],
   },
 }
 
