@@ -5,7 +5,8 @@ import { generateRecommendations } from "./actions"
 import { redirect } from "next/navigation"
 import { uniqueHealthConditions } from "@/data/dummy-health-conditions"
 import { Metadata } from "next"
-import ogImage from "../../../public/opengraph-image.jpg"
+
+import ogImage from "../opengraph-image.png"
 
 const data: any = {
   title: "HealthTips",
