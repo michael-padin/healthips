@@ -41,13 +41,9 @@ export function LoginForm() {
   const onSubmit = async (data: LoginType) => {
     startTransition(() => {
       signInWithCredentials(data).then((res) => {
-        if (res?.success) {
-          toast.success(res?.success)
-        } else {
+        if (res?.error) {
           toast.error(res?.error)
         }
-
-        console.log(res)
       })
     })
   }
