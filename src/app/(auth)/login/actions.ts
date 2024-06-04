@@ -9,30 +9,30 @@ import { LoginSchema } from "@/types/login"
 export const signInWithCredentials = async (
   data: z.infer<typeof LoginSchema>,
 ) => {
-  const validatetFields = LoginSchema.safeParse(data)
-
-  if (!validatetFields.success) {
-    return { error: "Invalid fields", success: null }
-  }
-
-  const { email, password } = validatetFields.data
-
   try {
+    const validatedFields = LoginSchema.safeParse(data)
+
+    if (!validatedFields.success) {
+      return { error: "Invalid fields", success: "" }
+    }
+
+    const { email, password } = validatedFields.data
+
     await signIn("credentials", {
       email,
       password,
       redirectTo: DEFAULT_LOGIN_REDIRECT,
     })
 
-    return { success: "Logged in", error: null }
+    return { success: "Logged in", error: "" }
   } catch (error) {
     // @TODO: handle error
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return { error: "Invalid credentials", success: null }
+          return { error: "Invalid credentials", success: "" }
         default:
-          return { error: "Something went wrong", success: null }
+          return { error: "Something went wrong", success: "" }
       }
     }
 

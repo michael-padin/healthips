@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { LoginForm } from "./_components/login-form"
 import Header from "@/app/dashboard/_components/header"
 import Link from "next/link"
+import { Toaster } from "sonner"
 
 export const metadata: Metadata = {
   title: "Login - HealthTips",
@@ -21,6 +22,7 @@ export default async function LoginPage() {
         </Link>
       </header>
       <LoginForm />
+      <Toaster richColors closeButton />
     </div>
   )
 }
