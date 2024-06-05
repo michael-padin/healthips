@@ -1,12 +1,28 @@
 // utils/getUserByEmail.js
 
-import { firestore } from "@/lib/firestore"
+import { firestoreDb } from "@/lib/firebase"
+import {
+  addDoc,
+  collection,
+  getDocs,
+  limit,
+  query,
+  where,
+} from "firebase/firestore"
 
 export const getUserByEmail = async (email: string) => {
   try {
-    const usersRef = firestore.collection("users")
-    const userQuery = usersRef.where("email", "==", email).limit(1)
-    const userSnapshot = await userQuery.get()
+    // const usersRef = firestoreDb.collection("users")
+    // const userQuery = usersRef.where("email", "==", email).limit(1)
+    // const userSnapshot = await userQuery.get()
+
+    const q = query(
+      collection(firestoreDb, "users"),
+      where("email", "==", email),
+      limit(1),
+    )
+
+    const userSnapshot = await getDocs(q)
 
     if (userSnapshot.empty) {
       return null
@@ -53,10 +69,16 @@ interface CreateUserType {
  */
 export const createUser = async (userData: CreateUserType) => {
   try {
-    const usersRef = firestore.collection("users")
-    const userDoc = await usersRef.add(userData)
+    const userRef = await addDoc(collection(firestoreDb, "users"), {
+      ...userData,
+    })
+
+    if (!userRef.id) {
+      return null
+    }
+
     return {
-      id: userDoc.id,
+      id: userRef.id,
       email: userData.email,
       name: userData.name,
       password: userData.password,
