@@ -5,6 +5,11 @@ import { createUser, getUserByEmail } from "@/services/user"
 
 import { RegisterSchema, RegisterType } from "@/types/register"
 
+/**
+ *
+ * @param data - data to be validated and hashed
+ * @returns - object with success and error message
+ */
 export const register = async (data: RegisterType) => {
   const parsedData = RegisterSchema.safeParse(data)
 
