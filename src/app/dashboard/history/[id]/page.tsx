@@ -9,8 +9,16 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbSeparator,
+  BreadcrumbSeparator
 } from "@/components/ui/breadcrumb"
+
+//create function that would truncate the title to fit in the breadcrumb
+const truncateTitle = (title: string) => {
+  if (title.length > 20) {
+    return `${title.slice(0, 20)}...`
+  }
+  return title
+}
 
 const History = async ({ params }: { params: { id: string } }) => {
   const history = await getRecommendationById(params.id)
@@ -18,12 +26,8 @@ const History = async ({ params }: { params: { id: string } }) => {
   const breadcrumbs = [
     { label: "Home", href: "/dashboard" },
     { label: "History", href: "/history" },
-    { label: history?.id, href: `/history/${history?.id}` },
+    { label: history?.title, href: `/history/${history?.id}` }
   ]
-
-  if (!history) {
-    return <Loader2 className="animate-spin stroke-primary" size={30} />
-  }
 
   return (
     <div className="">
@@ -31,10 +35,16 @@ const History = async ({ params }: { params: { id: string } }) => {
         <BreadcrumbList>
           {breadcrumbs.map((item, idx) => (
             <>
-              <BreadcrumbItem>
-                <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
+              <BreadcrumbItem key={idx}>
+                <BreadcrumbLink
+                  href={item.label === "History" ? "#" : item.href}
+                >
+                  {idx === breadcrumbs.length - 1
+                    ? truncateTitle(item.label)
+                    : item.label}
+                </BreadcrumbLink>
               </BreadcrumbItem>
-              <BreadcrumbSeparator />
+              {idx !== breadcrumbs.length - 1 && <BreadcrumbSeparator />}
             </>
           ))}
         </BreadcrumbList>
@@ -45,7 +55,7 @@ const History = async ({ params }: { params: { id: string } }) => {
         <DemoTemperatureSlider
           disabled
           currentTemperature={history?.temperature}
-          date={history?.date}
+          date={history?.date!}
         />
       </Suspense>
       <h3 className="mb-3 mt-5 font-bold text-secondary-foreground">

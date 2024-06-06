@@ -7,7 +7,7 @@ import { RecommendationAiModel } from "@/types/recommendation"
  */
 export const getModel = (healthCondition: string, temperature: number) => {
   const data: RecommendationAiModel = {
-    title: `Health Recommendations for ${healthCondition || "Asthma"} based on a room temperature of ${temperature}°C from dht11 sensor`,
+    title: `${healthCondition || "Asthma"} recommendation based on a room temperature of ${temperature}°C from dht11 sensor`,
     recommendations: [
       {
         title: "Maintain a Healthy Lifestyle",
