@@ -1,29 +1,21 @@
 import { auth } from "@/auth"
 import Header from "./_components/header"
 import SampleUI from "./_components/sample-ui"
-import { generateRecommendations } from "./actions"
+import {
+  findRecommendations,
+  generateRecommendations,
+  getDummyRecommendation,
+  getRecentRecommendation,
+  getRecommendationHistory,
+} from "./actions"
 import { redirect } from "next/navigation"
 import { uniqueHealthConditions } from "@/data/dummy-health-conditions"
 import { Metadata } from "next"
 
 import ogImage from "../opengraph-image.png"
-
-const data: any = {
-  title: "HealthTips",
-  recommendations: [
-    {
-      title: "Maintain a Healthy Lifestyle",
-      description:
-        "A healthy lifestyle is crucial for managing heart disease. This includes eating a balanced diet, engaging in regular physical activity, and maintaining a healthy weight.",
-    },
-    {
-      title: "Take Medications as Prescribed", // You can add a specific title for each recommendation if desired.
-      description:
-        "Adhering to your doctor's medication regimen is vital. Make sure to take your medications as prescribed and do not skip doses", // Description of the recommendation.
-    },
-    // Add more recommendation objects here...
-  ],
-}
+import { onValue, ref } from "firebase/database"
+import { History } from "./_components/history"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
@@ -66,33 +58,51 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function Dashboard() {
-  const session = await auth()
-  const healthCondition = session?.user.healthCondition
-  const foundCondition = healthCondition
+/**
+ *
+ * @param healthCondition - The health condition to find in the database or dummy data
+ * @returns  object of { label, value } for the health condition
+ */
+const getCondition = (healthCondition: string) => {
+  return healthCondition
     ? uniqueHealthConditions.find(
         (condition) => condition.value === healthCondition,
       )
     : { label: "Asthma", value: "asthma" }
+}
 
-  const temperature = 36
-  const prompt = `Generate health recommendations for an individual with ${foundCondition?.label || "Asthma"} based on a temperature of ${temperature}°C. Provide the recommendations in the following schema: ${JSON.stringify(data)}`
-  const response = await generateRecommendations(prompt)
+export default async function Dashboard() {
+  const session = await auth()
 
   if (!session?.user) {
     redirect("/login")
   }
+  const { healthCondition } = session.user
+  const foundCondition = getCondition(healthCondition || "Asthma")
+
+  const [recentRecommendation] = await Promise.all([
+    await getRecentRecommendation(session.user.email!),
+  ])
+
+  const dummyRecommendation =
+    !recentRecommendation &&
+    (await getDummyRecommendation(session.user.email!, foundCondition?.label!))
 
   return (
     <>
-      <Header />
-      <main>
+      {recentRecommendation ? (
         <SampleUI
-          recommendation={response.recommendation}
-          temperature={temperature}
-          prompt={prompt}
+          initialRecommendation={recentRecommendation}
+          foundCondition={foundCondition!.label}
+          email={session.user.email!}
         />
-      </main>
+      ) : (
+        <SampleUI
+          initialRecommendation={dummyRecommendation}
+          foundCondition={foundCondition!.label}
+          email={session.user.email!}
+        />
+      )}
     </>
   )
 }
