@@ -1,7 +1,7 @@
 import NextAuth, { DefaultSession } from "next-auth"
-import { firestore } from "./lib/firestore"
 import authConfig from "./auth.config"
 import { FirestoreAdapter } from "@auth/firebase-adapter"
+import { app } from "./lib/firebase"
 
 declare module "next-auth" {
   /**
@@ -12,6 +12,7 @@ declare module "next-auth" {
       /** The user's postal address. */
       role: string
       healthCondition: string
+
       /**
        * By default, TypeScript merges new interface properties and overwrites existing ones.
        * In this case, the default session user properties will be overwritten,
@@ -28,7 +29,7 @@ declare module "next-auth" {
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: FirestoreAdapter(firestore),
+  adapter: FirestoreAdapter(app),
   session: { strategy: "jwt" },
   ...authConfig,
 })
