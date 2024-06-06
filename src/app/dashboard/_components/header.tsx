@@ -11,14 +11,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import {
   ClockIcon,
   LogOutIcon,
   MountainIcon,
   SettingsIcon,
-  UserIcon,
+  UserIcon
 } from "lucide-react"
 import { signOut } from "next-auth/react"
 import Link from "next/link"
@@ -27,19 +27,18 @@ import { useRouter } from "next/navigation"
 export default function Header() {
   const router = useRouter()
   return (
-    <div className="flex flex-col">
-      <header className="flex h-16 w-full shrink-0 items-center px-4 md:px-6">
+    <div className="flex flex-col border-b bg-white">
+      <header className="container mx-auto flex h-16 w-full shrink-0 items-center p-4 lg:p-8">
         <Link
           href="#"
           className="mr-6 flex items-center gap-2"
           prefetch={false}
         >
-          <MountainIcon className="h-6 w-6" />
           <span className="text-lg font-semibold text-[#d62b71]">
             HealthTips
           </span>
         </Link>
-        <div className="ml-auto flex items-center gap-4">
+        <div className="ml-auto flex items-center gap-4 bg-white">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar className="h-9 w-9">
@@ -51,8 +50,8 @@ export default function Header() {
                 <span className="sr-only">Toggle user menu</span>
               </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
+            <DropdownMenuContent align="end" className="bg-background">
+              {/* <DropdownMenuItem>
                 <UserIcon className="mr-2 h-4 w-4" />
                 Profile
               </DropdownMenuItem>
@@ -63,9 +62,10 @@ export default function Header() {
               <DropdownMenuItem>
                 <SettingsIcon className="mr-2 h-4 w-4" />
                 Settings
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
+              </DropdownMenuItem> */}
+              {/* <DropdownMenuSeparator /> */}
               <DropdownMenuItem
+                className="bg-white"
                 onClick={() =>
                   signOut({ redirect: true, callbackUrl: "/login" })
                 }
